@@ -1,0 +1,13 @@
+{
+  "id": "com.domain.app",
+  "version": "0.0.1",
+  "vendor": "My Company",
+  "type": "web",
+  "main": "index.html",
+  "title": "Todo List",
+  "icon": "images/icon.png",
+  "requiredPermissions": [
+    "time.query",
+    "activity.operation"
+  ]
+}
