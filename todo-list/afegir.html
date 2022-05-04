@@ -9,10 +9,26 @@
     <title>Afegir nova Tasca</title>
 </head>
 <body>
+    <input class="form-control" type="text" id="dataDia" style="width: 50px" placeholder="dd">
+    <input class="form-control" type="text" id="dataMes" style="width: 50px" placeholder="mm">
+    <input class="form-control" type="text" id="dataAny" style="width: 100px" placeholder="aaaa">
+
     <input class="form-control" type="text" id="titol" placeholder="Titol">
-    <input class="form-control" type="date" id="descripcio" placeholder="Hora d'inici">
+
+    <input class="form-control" type="text" id="hora" style="width: 50px" placeholder="HH">
+    <input class="form-control" type="text" id="min" style="width: 50px" placeholder="MM">
+
+
     <textarea class="form-control" id="descripcio" placeholder="Descripcio"></textarea>
-    <button class="btn btn-primary" id="afegirTasca">Afegir</button>
+    <button class="btn btn-primary" id="afegirTasca">Afegir</button><br><br>
     
+    <input class="form-control" type="text" id="dataBuscarDia" style="width: 50px" placeholder="dd">
+    <input class="form-control" type="text" id="dataBuscarMes" style="width: 50px" placeholder="mm">
+    <input class="form-control" type="text" id="dataBuscarAny" style="width: 100px" placeholder="aaaa">
+
+
+
+    <button class="btn btn-danger" id="buscarPerDia">Buscar</button><br><br>
+    <ul id="tasques"></ul>
 </body>
 </html>
