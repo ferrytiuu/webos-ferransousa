@@ -134,13 +134,13 @@ window.onload = function () {
             console.log(dataABuscar);
             let tasques = JSON.parse(localStorage.getItem(dataABuscar));
             console.log(tasques);
-            let comptador = 0;
+            var comptador = 0;
             if (tasques != null) {
                 for (let i = 0; i < tasques.length; i++) {
                     comptador++;
                 }
                 console.log('notifs' + dataABuscar + ': ' + comptador);
-                document.getElementById('notifs' + dataABuscar).innerText = comptador;
+                document.getElementById("notifs" + dataABuscar).innerText = comptador;
             }
 
         }
