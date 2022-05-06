@@ -72,7 +72,7 @@ window.onload = function () {
                             console.log(dataABuscar);
                             let tasques = JSON.parse(localStorage.getItem(dataABuscar));
                             console.log(tasques);
-                            if (dataABuscar != null) {
+                            if (dataABuscar !='' && dataABuscar != 'start') {
                                 modal.style.display = "block";
                                 modalActiu = !modalActiu;
                                 carregarModal(dataABuscar);
@@ -94,7 +94,7 @@ window.onload = function () {
         console.log(dataABuscar);
         let tasques = JSON.parse(localStorage.getItem(dataABuscar));
         console.log(tasques);
-        if (dataABuscar != null) {
+        if (dataABuscar !='' && dataABuscar != 'start') {
             modal.style.display = "block";
             modalActiu = !modalActiu;
             carregarModal(dataABuscar);
