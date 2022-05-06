@@ -16,6 +16,7 @@ window.onload = function () {
             tasques.push({titol: titol, hora:hora, descripcio: descripcio});
             localStorage.setItem(data, JSON.stringify(tasques));
         }
+        location.replace('index.html');
     }
 
     document.getElementById("buscarPerDia").onclick = function () {

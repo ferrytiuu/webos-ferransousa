@@ -7,6 +7,7 @@ window.onload = function () {
     start.classList.add('active');
 
 
+    var table = document.getElementById("calendar");
     var modal = document.getElementById("myModal");
     var span = document.getElementsByClassName("close")[0];
 
@@ -30,23 +31,12 @@ window.onload = function () {
     document.onkeydown = checkKey;
 
     /**
-     * If the user presses the up arrow, the function will check if the cell above the active cell
-     * exists, and if it does, it will make that cell active. 
-     * 
-     * If the user presses the down arrow, the function will check if the cell below the active cell
-     * exists, and if it does, it will make that cell active. 
-     * 
-     * If the user presses the left arrow, the function will check if the cell to the left of the
-     * active cell exists, and if it does, it will make that cell active. 
-     * 
-     * If the user presses the right arrow, the function will check if the cell to the right of the
-     * active cell exists, and if it does, it will make that cell active. 
-     * 
-     * If the user presses the enter key, the function will log the id of the active cell to the
-     * console.
+     * If the modal is active, and the user presses the up, down, left, or right arrow keys, the
+     * function will move the focus to the next cell in the direction of the arrow key pressed. If the
+     * user presses the enter key, the function will open the modal and load the data for the cell that
+     * is currently in focus.
      * @param e - the event object
      */
-
     function checkKey(e) {
         e = e || window.event;
         if (modalActiu) {
@@ -75,7 +65,6 @@ window.onload = function () {
                 var sibling = start.nextElementSibling;
                 dotheneedful(sibling);
             } else if (e.keyCode == '13') {
-                var table = document.getElementById("calendar");
                 for (var i = 0, row; row = table.rows[i]; i++) {
                     for (var j = 0, col; col = row.cells[j]; j++) {
                         if (col.classList.contains('active')) {
@@ -96,7 +85,12 @@ window.onload = function () {
     }
 
     document.getElementById('calendar').addEventListener('click', (ev) => {
-        let dataABuscar = ev.target.id;
+        let dataABuscar;
+        if (ev.target.tagName == "SPAN") {
+            dataABuscar = ev.target.parentElement.id;
+        }else{
+            dataABuscar = ev.target.id;
+        }
         console.log(dataABuscar);
         let tasques = JSON.parse(localStorage.getItem(dataABuscar));
         console.log(tasques);
@@ -134,4 +128,21 @@ window.onload = function () {
         }
     }
 
+    for (var i = 0, row; row = table.rows[i]; i++) {
+        for (var j = 0, col; col = row.cells[j]; j++) {
+            let dataABuscar = col.id;
+            console.log(dataABuscar);
+            let tasques = JSON.parse(localStorage.getItem(dataABuscar));
+            console.log(tasques);
+            let comptador = 0;
+            if (tasques != null) {
+                for (let i = 0; i < tasques.length; i++) {
+                    comptador++;
+                }
+                console.log('notifs' + dataABuscar + ': ' + comptador);
+                document.getElementById('notifs' + dataABuscar).innerText = comptador;
+            }
+
+        }
+    }
 }
