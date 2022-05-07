@@ -72,7 +72,7 @@ window.onload = function () {
                             console.log(dataABuscar);
                             let tasques = JSON.parse(localStorage.getItem(dataABuscar));
                             console.log(tasques);
-                            if (dataABuscar !='' && dataABuscar != 'start') {
+                            if (dataABuscar != '' && dataABuscar != 'start') {
                                 modal.style.display = "block";
                                 modalActiu = !modalActiu;
                                 carregarModal(dataABuscar);
@@ -88,13 +88,13 @@ window.onload = function () {
         let dataABuscar;
         if (ev.target.tagName == "SPAN") {
             dataABuscar = ev.target.parentElement.id;
-        }else{
+        } else {
             dataABuscar = ev.target.id;
         }
         console.log(dataABuscar);
         let tasques = JSON.parse(localStorage.getItem(dataABuscar));
         console.log(tasques);
-        if (dataABuscar !='' && dataABuscar != 'start') {
+        if (dataABuscar != '' && dataABuscar != 'start') {
             modal.style.display = "block";
             modalActiu = !modalActiu;
             carregarModal(dataABuscar);
@@ -128,7 +128,7 @@ window.onload = function () {
         }
     }
 
-    for (var i = 0, row; row = table.rows[i]; i++) {
+    /*for (var i = 0, row; row = table.rows[i]; i++) {
         for (var j = 0, col; col = row.cells[j]; j++) {
             let dataABuscar = col.id;
             console.log(dataABuscar);
@@ -139,10 +139,32 @@ window.onload = function () {
                 for (let i = 0; i < tasques.length; i++) {
                     comptador++;
                 }
-                console.log('notifs' + dataABuscar + ': ' + comptador);
-                document.getElementById("notifs" + dataABuscar).innerText = comptador;
-            }
+                // console.log('notifs' + dataABuscar + ': ' + comptador);
+                // document.getElementById("notifs" + dataABuscar).innerText = comptador;
+                
+                
 
+            }
+            
+        }
+    }*/
+
+    var notificacions = document.querySelectorAll('.notif');
+    for (let i = 0; i < notificacions.length; i++) {
+        dataABuscar = notificacions[i].parentElement.id;
+        //console.log(dataABuscar);
+        let tasques = JSON.parse(localStorage.getItem(dataABuscar));
+        //console.log(tasques);
+        var comptador = 0;
+        if (tasques != null) {
+            for (let i = 0; i < tasques.length; i++) {
+                comptador++;
+            }
+            console.log('Tasques ' + dataABuscar + ': ' + comptador);
+
+        }
+        if (comptador != 0) {
+            document.getElementById(dataABuscar).firstChild.innerText = comptador;
         }
     }
 }
