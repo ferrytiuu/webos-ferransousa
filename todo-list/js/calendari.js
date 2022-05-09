@@ -138,9 +138,9 @@ window.onload = function () {
             let html = "";
             for (let i = 0; i < tasques.length; i++) {
                 if (tasques[i].estatTasca == 'acabada') {
-                    html += "<li><a class='tascaCompletada' href = '#'><h2>" + tasques[i].titol.toUpperCase() + "</h2><p>" + tasques[i].descripcio + "</p><p>" + tasques[i].hora + "</p></a></li>";
+                    html += "<li><a class='tascaCompletada' href = './editar.html?data="+data+"&posicio="+i+"'><h2>" + tasques[i].titol.toUpperCase() + "</h2><p>" + tasques[i].descripcio + "</p><p>" + tasques[i].hora + "</p></a></li>";
                 }else{
-                    html += "<li><a class='tascaNoCompletada' href = '#'><h2>" + tasques[i].titol.toUpperCase() + "</h2><p>" + tasques[i].descripcio + "</p><p>" + tasques[i].hora + "</p></a></li>";
+                    html += "<li><a class='tascaNoCompletada' href = './editar.html?data="+data+"&posicio="+i+"'><h2>" + tasques[i].titol.toUpperCase() + "</h2><p>" + tasques[i].descripcio + "</p><p>" + tasques[i].hora + "</p></a></li>";
                 }
                 
             }
@@ -172,15 +172,5 @@ window.onload = function () {
             document.getElementById(dataABuscar).firstChild.getElementsByTagName('span')[1].innerText = comptadorNoAcabada;
         }
 
-
-        /*if (tasques != null) {
-            for (let i = 0; i < tasques.length; i++) {
-                comptador++;
-            }
-            console.log('Tasques ' + dataABuscar + ': ' + comptador);
-        }
-        if (comptador != 0) {
-            document.getElementById(dataABuscar).firstChild.innerText = comptador;
-        }*/
     }
 }
