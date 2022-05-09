@@ -86,8 +86,10 @@ window.onload = function () {
 
     document.getElementById('calendar').addEventListener('click', (ev) => {
         let dataABuscar;
-        if (ev.target.tagName == "SPAN") {
+        if (ev.target.tagName == "div") {
             dataABuscar = ev.target.parentElement.id;
+        } else if (ev.target.tagName == "span") {
+            dataABuscar = ev.target.parentElement.parentElement.id;
         } else {
             dataABuscar = ev.target.id;
         }
@@ -101,6 +103,19 @@ window.onload = function () {
         }
 
     })
+
+    window.addEventListener("keydown", function (inEvent) {
+        if (window.event) {
+            keycode = inEvent.keyCode;
+        }
+        switch (keycode) {
+            case 403:
+                modal.style.display = "none";
+                modalActiu = !modalActiu;
+                document.getElementById("tasquesModal").innerHTML = '';
+                break;
+        }
+    });
 
     span.onclick = function () {
         modal.style.display = "none";
@@ -122,49 +137,50 @@ window.onload = function () {
         if (tasques != null) {
             let html = "";
             for (let i = 0; i < tasques.length; i++) {
-                html += "<li>" + tasques[i].titol + " / " + tasques[i].hora + " / " + tasques[i].descripcio + "</li>";
+                if (tasques[i].estatTasca == 'acabada') {
+                    html += "<li><a class='tascaCompletada' href = '#'><h2>" + tasques[i].titol.toUpperCase() + "</h2><p>" + tasques[i].descripcio + "</p><p>" + tasques[i].hora + "</p></a></li>";
+                }else{
+                    html += "<li><a class='tascaNoCompletada' href = '#'><h2>" + tasques[i].titol.toUpperCase() + "</h2><p>" + tasques[i].descripcio + "</p><p>" + tasques[i].hora + "</p></a></li>";
+                }
+                
             }
             document.getElementById("tasquesModal").innerHTML = html;
         }
     }
 
-    /*for (var i = 0, row; row = table.rows[i]; i++) {
-        for (var j = 0, col; col = row.cells[j]; j++) {
-            let dataABuscar = col.id;
-            console.log(dataABuscar);
-            let tasques = JSON.parse(localStorage.getItem(dataABuscar));
-            console.log(tasques);
-            var comptador = 0;
-            if (tasques != null) {
-                for (let i = 0; i < tasques.length; i++) {
-                    comptador++;
-                }
-                // console.log('notifs' + dataABuscar + ': ' + comptador);
-                // document.getElementById("notifs" + dataABuscar).innerText = comptador;
-                
-                
-
-            }
-            
-        }
-    }*/
-
-    var notificacions = document.querySelectorAll('.notif');
+    var notificacions = document.querySelectorAll('.notifs');
     for (let i = 0; i < notificacions.length; i++) {
         dataABuscar = notificacions[i].parentElement.id;
         //console.log(dataABuscar);
         let tasques = JSON.parse(localStorage.getItem(dataABuscar));
         //console.log(tasques);
-        var comptador = 0;
+        var comptadorAcabada = 0;
+        var comptadorNoAcabada = 0;
+
         if (tasques != null) {
+            for (let j = 0; j < tasques.length; j++) {
+                if (tasques[j].estatTasca == 'acabada') {
+                    comptadorAcabada++;
+                } else {
+                    comptadorNoAcabada++;
+                }
+            }
+        } if (comptadorAcabada != 0) {
+            document.getElementById(dataABuscar).firstChild.getElementsByTagName('span')[0].innerText = comptadorAcabada;
+        }
+        if (comptadorNoAcabada != 0) {
+            document.getElementById(dataABuscar).firstChild.getElementsByTagName('span')[1].innerText = comptadorNoAcabada;
+        }
+
+
+        /*if (tasques != null) {
             for (let i = 0; i < tasques.length; i++) {
                 comptador++;
             }
             console.log('Tasques ' + dataABuscar + ': ' + comptador);
-
         }
         if (comptador != 0) {
             document.getElementById(dataABuscar).firstChild.innerText = comptador;
-        }
+        }*/
     }
 }

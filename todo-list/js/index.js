@@ -5,15 +5,16 @@ window.onload = function () {
         let titol = document.getElementById("titol").value;
         let hora = ""+document.getElementById("hora").value+":"+document.getElementById("min").value+"";
         let descripcio = document.getElementById("descripcio").value;
+        let estatTasca = document.getElementById('estatTasca').value;
 
         if(localStorage.getItem(data)==null){
-            let tasques = JSON.stringify([{titol: titol, hora: hora, descripcio: descripcio}]);
+            let tasques = JSON.stringify([{titol: titol, hora: hora, descripcio: descripcio, estatTasca: estatTasca}]);
             console.log(tasques);
             localStorage.setItem(data, tasques);
         }else{
             let tasques = JSON.parse(localStorage.getItem(data));
             console.log(tasques);
-            tasques.push({titol: titol, hora:hora, descripcio: descripcio});
+            tasques.push({titol: titol, hora:hora, descripcio: descripcio, estatTasca: estatTasca});
             localStorage.setItem(data, JSON.stringify(tasques));
         }
         location.replace('index.html');
@@ -25,7 +26,7 @@ window.onload = function () {
         if(tasques!=null){
             let html = "";
             for(let i=0; i<tasques.length; i++){
-                html += "<li>"+tasques[i].titol+" / "+tasques[i].hora+" / "+tasques[i].descripcio+"</li>";
+                html += "<li>"+tasques[i].titol+" / "+tasques[i].hora+" / "+tasques[i].descripcio+" / "+tasques[i].estatTasca+"</li> <span class='bi bi-trash'></span>";
             }
             document.getElementById("tasques").innerHTML = html;
         }

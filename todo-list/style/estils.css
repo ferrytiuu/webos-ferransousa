@@ -120,36 +120,38 @@ tr:nth-child(even)>.calendar__day__cell:nth-child(even) {
     text-transform: uppercase;
 }
 
+/* Modal */
+
 .modal {
     display: none;
-    /* Hidden by default */
     position: fixed;
-    /* Stay in place */
     z-index: 1;
-    /* Sit on top */
     padding-top: 100px;
-    /* Location of the box */
     left: 0;
     top: 0;
     width: 100%;
-    /* Full width */
     height: 100%;
-    /* Full height */
     overflow: auto;
-    /* Enable scroll if needed */
     background-color: rgb(0, 0, 0);
-    /* Fallback color */
     background-color: rgba(0, 0, 0, 0.4);
-    /* Black w/ opacity */
 }
 
 /* Modal Content */
 .modal-content {
-    background-color: #fefefe;
+    background-color: #f6e9dc;
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
+}
+
+.modal-content>p{
+    color: #4e4f4a;
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-align: center;
 }
 
 /* The Close Button */
@@ -160,6 +162,10 @@ tr:nth-child(even)>.calendar__day__cell:nth-child(even) {
     font-weight: bold;
 }
 
+ul {
+    list-style-type: none;
+}
+
 .close:hover,
 .close:focus {
     color: #000;
@@ -167,10 +173,123 @@ tr:nth-child(even)>.calendar__day__cell:nth-child(even) {
     cursor: pointer;
 }
 
-.notif{
-    color:blue;
+.notifs {
     font-size: 20px;
-    bottom: 5%;
-    right: 5%;
+}
+
+.acabada {
     position: absolute;
+    color: green;
+    left: 5%;
+    bottom: 5%;
+}
+
+.noAcabada {
+    position: absolute;
+    color: red;
+    right: 5%;
+    bottom: 5%;
+}
+
+
+/* Targetes */
+h2, p {
+    font-size: 100%;
+    font-weight: normal;
+}
+
+ul, li {
+    list-style: none;
+}
+
+ul {
+    overflow: hidden;
+    padding: 3em;
+}
+
+ul li {
+    margin-left: 3em;
+    margin-right: 3em;
+    float: left;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+ul li h2 {
+    font-size: 200%;
+    font-weight: bold;
+}
+
+ul li p {
+    font-size: 140%;
+}
+
+ul li a {
+    text-decoration: none;
+    color: #000;
+    display: block;
+    height: 15em;
+    width: 15em;
+    padding: 1em;
+    /* Firefox */
+    -moz-box-shadow: 5px 5px 7px rgba(33, 33, 33, 1);
+    /* Safari+Chrome */
+    -webkit-box-shadow: 5px 5px 7px rgba(33, 33, 33, .7);
+    /* Opera */
+    box-shadow: 5px 5px 7px rgba(33, 33, 33, .7);
+}
+
+ul li a {
+    -webkit-transform: rotate(-6deg);
+    -o-transform: rotate(-6deg);
+    -moz-transform: rotate(-6deg);
+}
+
+ul li:nth-child(even) a {
+    -o-transform: rotate(4deg);
+    -webkit-transform: rotate(4deg);
+    -moz-transform: rotate(4deg);
+    position: relative;
+    top: 5px;
+}
+
+ul li:nth-child(3n) a {
+    -o-transform: rotate(-3deg);
+    -webkit-transform: rotate(-3deg);
+    -moz-transform: rotate(-3deg);
+    position: relative;
+    top: -5px;
+}
+
+ul li:nth-child(5n) a {
+    -o-transform: rotate(5deg);
+    -webkit-transform: rotate(5deg);
+    -moz-transform: rotate(5deg);
+    position: relative;
+    top: -10px;
+}
+
+ul li a:hover, ul li a:focus {
+    -moz-box-shadow: 10px 10px 7px rgba(0, 0, 0, .7);
+    -webkit-box-shadow: 10px 10px 7px rgba(0, 0, 0, .7);
+    box-shadow: 10px 10px 7px rgba(0, 0, 0, .7);
+    -webkit-transform: scale(1.25);
+    -moz-transform: scale(1.25);
+    -o-transform: scale(1.25);
+    position: relative;
+    z-index: 5;
+}
+
+ul li a {
+    -moz-transition: -moz-transform .15s linear;
+    -o-transition: -o-transform .15s linear;
+    -webkit-transition: -webkit-transform .15s linear;
+}
+
+.tascaNoCompletada{
+    background: #ff8282;
+}
+
+.tascaCompletada{
+    background: #82ffa4;
 }
