@@ -13,6 +13,10 @@ window.onload = function () {
 
     var modalActiu = true;
 
+    (function () {
+        emailjs.init("ZSJciMi0P3Wy5Cv6_");
+    })();
+
 
     function dotheneedful(sibling) {
         if (sibling != null) {
@@ -138,11 +142,11 @@ window.onload = function () {
             let html = "";
             for (let i = 0; i < tasques.length; i++) {
                 if (tasques[i].estatTasca == 'acabada') {
-                    html += "<li><a class='tascaCompletada' href = './editar.html?data="+data+"&posicio="+i+"'><h2>" + tasques[i].titol.toUpperCase() + "</h2><p>" + tasques[i].descripcio + "</p><p>" + tasques[i].hora + "</p></a></li>";
-                }else{
-                    html += "<li><a class='tascaNoCompletada' href = './editar.html?data="+data+"&posicio="+i+"'><h2>" + tasques[i].titol.toUpperCase() + "</h2><p>" + tasques[i].descripcio + "</p><p>" + tasques[i].hora + "</p></a></li>";
+                    html += "<li><a class='tascaCompletada' href = './editar.html?data=" + data + "&posicio=" + i + "'><h2>" + tasques[i].titol.toUpperCase() + "</h2><p>" + tasques[i].descripcio + "</p><p>" + tasques[i].hora + "</p></a></li>";
+                } else {
+                    html += "<li><a class='tascaNoCompletada' href = './editar.html?data=" + data + "&posicio=" + i + "'><h2>" + tasques[i].titol.toUpperCase() + "</h2><p>" + tasques[i].descripcio + "</p><p>" + tasques[i].hora + "</p></a></li>";
                 }
-                
+
             }
             document.getElementById("tasquesModal").innerHTML = html;
         }
@@ -172,5 +176,26 @@ window.onload = function () {
             document.getElementById(dataABuscar).firstChild.getElementsByTagName('span')[1].innerText = comptadorNoAcabada;
         }
 
+    }
+
+    document.getElementById('enviarCorreu').onclick = function () {
+        for (var i = 0, row; row = table.rows[i]; i++) {
+            for (var j = 0, col; col = row.cells[j]; j++) {
+                let dataABuscar = col.id;
+                let tasques = JSON.parse(localStorage.getItem(dataABuscar));
+                if (tasques != null) {
+                    for (let k = 0; k < tasques.length; k++) {
+                        if (tasques[k].estatTasca == 'noAcabada') {
+                            var contactParams = {
+                                tasca: tasques[k].titol,
+                                hora: tasques[k].hora,
+                                descripcio: tasques[k].descripcio,
+                            };
+                            emailjs.send('service_t33ii4r', 'template_0we666b', contactParams).then(function (response) { })
+                        }
+                    }
+                }
+            }
+        }
     }
 }
