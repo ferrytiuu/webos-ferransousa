@@ -178,24 +178,63 @@ window.onload = function () {
 
     }
 
-    document.getElementById('enviarCorreu').onclick = function () {
+    setInterval(function () {
         for (var i = 0, row; row = table.rows[i]; i++) {
             for (var j = 0, col; col = row.cells[j]; j++) {
                 let dataABuscar = col.id;
                 let tasques = JSON.parse(localStorage.getItem(dataABuscar));
                 if (tasques != null) {
                     for (let k = 0; k < tasques.length; k++) {
-                        if (tasques[k].estatTasca == 'noAcabada') {
-                            var contactParams = {
-                                tasca: tasques[k].titol,
-                                hora: tasques[k].hora,
-                                descripcio: tasques[k].descripcio,
-                            };
-                            emailjs.send('service_t33ii4r', 'template_0we666b', contactParams).then(function (response) { })
+                        var dataActual = new Date();
+                        var dataTasca = new Date(dataABuscar.split('/')[2], dataABuscar.split('/')[1] - 1, dataABuscar.split('/')[0], tasques[k].hora.substring(0, tasques[k].hora.indexOf(':')), tasques[k].hora.substring(tasques[k].hora.indexOf(':') + 1));
+                        var diferencia = parseInt(dataTasca.getTime() - dataActual.getTime());
+
+                        if (tasques[k].estatTasca == "noAcabada") {
+                            if (diferencia > 0 && diferencia < 1800000 && tasques[k].correuMitja == 'no') {
+
+                                var contactParams = {
+                                    tasca: tasques[k].titol,
+                                    hora: tasques[k].hora,
+                                    descripcio: tasques[k].descripcio,
+                                };
+                                emailjs.send('service_t33ii4r', 'template_eyzj0gs', contactParams).then(function (response) { })
+                                
+                                let titol = tasques[k].titol;
+                                let hora = tasques[k].hora;
+                                let descripcio = tasques[k].descripcio;
+                                let estatTasca = tasques[k].estatTasca;
+                                let correuHora = tasques[k].correuHora
+                                let correuMitja = 'si';
+                                tasques.splice(k, 1);
+                                localStorage.removeItem(dataABuscar);
+                                tasques.push({ titol: titol, hora: hora, descripcio: descripcio, estatTasca: estatTasca, correuHora: correuHora, correuMitja: correuMitja });
+                                localStorage.setItem(dataABuscar, JSON.stringify(tasques));
+
+
+                            } else if (diferencia > 1800000 && diferencia < 3600000 && tasques[k].correuHora == 'no') {
+                                
+                                var contactParams = {
+                                    tasca: tasques[k].titol,
+                                    hora: tasques[k].hora,
+                                    descripcio: tasques[k].descripcio,
+                                };
+                                emailjs.send('service_t33ii4r', 'template_0we666b', contactParams).then(function (response) { })
+
+                                let titol = tasques[k].titol;
+                                let hora = tasques[k].hora;
+                                let descripcio = tasques[k].descripcio;
+                                let estatTasca = tasques[k].estatTasca;
+                                let correuHora = 'si';
+                                let correuMitja = tasques[k].correuMitja;
+                                tasques.splice(k, 1);
+                                localStorage.removeItem(dataABuscar);
+                                tasques.push({ titol: titol, hora: hora, descripcio: descripcio, estatTasca: estatTasca, correuHora: correuHora, correuMitja: correuMitja });
+                                localStorage.setItem(dataABuscar, JSON.stringify(tasques));
+                            }
                         }
                     }
                 }
             }
         }
-    }
+    }, 10000);
 }

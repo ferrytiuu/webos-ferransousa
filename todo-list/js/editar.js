@@ -8,6 +8,8 @@ window.onload = function () {
     var tasques = JSON.parse(localStorage.getItem(data));
 
     var estatTascaSelect = document.getElementById('estatTascaModificar');
+    var correuHora = tasques[posicio].correuHora;
+    var correuMitja = tasques[posicio].correuMitja;
 
     document.getElementById('dataDiaModificar').value = data.substring(0, data.indexOf('/'));
     document.getElementById('minModificar').value = tasques[posicio].hora.substring(tasques[posicio].hora.indexOf(':') + 1);
@@ -29,7 +31,7 @@ window.onload = function () {
         let estatTasca = document.getElementById('estatTascaModificar').value;
         tasques.splice(posicio, 1);
         localStorage.removeItem(data);
-        tasques.push({ titol: titol, hora: hora, descripcio: descripcio, estatTasca: estatTasca });
+        tasques.push({ titol: titol, hora: hora, descripcio: descripcio, estatTasca: estatTasca, correuHora: correuHora, correuMitja: correuMitja });
         console.log(tasques);
         localStorage.setItem(data2, JSON.stringify(tasques));
         location.replace('index.html');
