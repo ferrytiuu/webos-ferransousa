@@ -135,21 +135,42 @@ window.onload = function () {
         }
     }
 
+
+    /**
+     * It loads the tasks of a given day into a modal.
+     * @param data - the date of the task
+     */
     function carregarModal(data) {
         document.getElementById('dataModal').innerText = data;
         let tasques = JSON.parse(localStorage.getItem(data));
+        let html = "";
+        html += "<li><a id='tascaNova' href = './afegir.html?data=" + data + " '><img src='images/add.png' ></a></li>";
         if (tasques != null) {
-            let html = "";
             for (let i = 0; i < tasques.length; i++) {
                 if (tasques[i].estatTasca == 'acabada') {
                     html += "<li><a class='tascaCompletada' href = './editar.html?data=" + data + "&posicio=" + i + "'><h2>" + tasques[i].titol.toUpperCase() + "</h2><p>" + tasques[i].descripcio + "</p><p>" + tasques[i].hora + "</p></a></li>";
                 } else {
                     html += "<li><a class='tascaNoCompletada' href = './editar.html?data=" + data + "&posicio=" + i + "'><h2>" + tasques[i].titol.toUpperCase() + "</h2><p>" + tasques[i].descripcio + "</p><p>" + tasques[i].hora + "</p></a></li>";
                 }
-
             }
-            document.getElementById("tasquesModal").innerHTML = html;
         }
+        document.getElementById("tasquesModal").innerHTML = html;
+        document.getElementById("tascaNova").focus();
+
+        var inputs = document.querySelectorAll('#tasquesModal li a');
+        for (var i = 0; i < inputs.length; i++)
+            inputs[i].addEventListener("keyup", function (event) {
+                if (event.keyCode == 37) {
+                    if (this.parentElement.previousElementSibling.firstElementChild) {
+                        this.parentElement.previousElementSibling.firstElementChild.focus();
+                    }
+                }
+                else if (event.keyCode == 39) {
+                    if (this.parentElement.nextElementSibling.firstElementChild) {
+                        this.parentElement.nextElementSibling.firstElementChild.focus();
+                    }
+                }
+            }, false);
     }
 
     var notificacions = document.querySelectorAll('.notifs');
@@ -198,7 +219,7 @@ window.onload = function () {
                                     descripcio: tasques[k].descripcio,
                                 };
                                 emailjs.send('service_t33ii4r', 'template_eyzj0gs', contactParams).then(function (response) { })
-                                
+
                                 let titol = tasques[k].titol;
                                 let hora = tasques[k].hora;
                                 let descripcio = tasques[k].descripcio;
@@ -212,7 +233,7 @@ window.onload = function () {
 
 
                             } else if (diferencia > 1800000 && diferencia < 3600000 && tasques[k].correuHora == 'no') {
-                                
+
                                 var contactParams = {
                                     tasca: tasques[k].titol,
                                     hora: tasques[k].hora,
