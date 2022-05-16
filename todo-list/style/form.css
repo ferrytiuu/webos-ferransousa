@@ -1,0 +1,48 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+
+
+body {
+    background-color: #e66053;
+    text-align: center;
+    font-family: 'Montserrat';
+}
+
+#formulari {
+    background-color: #f6e9dc;
+    display: inline-block;
+    width: 50%;
+    margin-top: 2%;
+    text-align: center;
+    padding: 2%;
+    border-radius: 4%;
+}
+
+input {
+    width: 10%;
+    text-align: center;
+}
+
+#titol, #titolModificar {
+    width: 40%;
+    margin: auto;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+#descripcio, #descripcioModificar {
+    width: 50%;
+    height: 150px;
+    margin: auto;
+    resize: none;
+}
+
+input [type="radio"]{
+    vertical-align: baseline;
+}
+
+.botoMando{
+    width: 41px;
+    height: 25px;
+    display: inline;
+    vertical-align: middle;
+}
