@@ -1,4 +1,4 @@
-
+/* Espera a carregar tota la pàgina per iniciar el script. */
 window.onload = function () {
     var start = document.getElementById('start');
     start.focus();
@@ -13,11 +13,17 @@ window.onload = function () {
 
     var modalActiu = true;
 
+    /* Initialitza la llibreria emailjs. */
     (function () {
         emailjs.init("ZSJciMi0P3Wy5Cv6_");
     })();
 
 
+    /**
+     * Si existeix un element germà, hi fa el focus allà, afegint-hi el color, color de fons,
+     * i treient-lo de l'anterior
+     * @param sibling - L'element on fer el focus
+     */
     function dotheneedful(sibling) {
         if (sibling != null) {
             start.focus();
@@ -35,11 +41,10 @@ window.onload = function () {
     document.onkeydown = checkKey;
 
     /**
-     * If the modal is active, and the user presses the up, down, left, or right arrow keys, the
-     * function will move the focus to the next cell in the direction of the arrow key pressed. If the
-     * user presses the enter key, the function will open the modal and load the data for the cell that
-     * is currently in focus.
-     * @param e - the event object
+     * Si el modal està actiu, i l'usuari prem les fletxes, la funció mourà el focus a la cel·la en la 
+     * direcció de la fletxa premuda. Si l'usuari prem la tecla enter, la funció obrirà el modal i carregarà
+     * les dades de la cel·la en focus.
+     * @param e - L'event del teclat
      */
     function checkKey(e) {
         e = e || window.event;
@@ -88,6 +93,7 @@ window.onload = function () {
         }
     }
 
+    /* Carrega el modal si en comptes de prémer enter, es fa click en la cel·la. */
     document.getElementById('calendar').addEventListener('click', (ev) => {
         let dataABuscar;
         if (ev.target.tagName == "div") {
@@ -108,6 +114,7 @@ window.onload = function () {
 
     })
 
+    /* Si es prem el keycode 403 (botó vermell del mando), es tancarà el modal. */
     window.addEventListener("keydown", function (inEvent) {
         if (window.event) {
             keycode = inEvent.keyCode;
@@ -121,6 +128,7 @@ window.onload = function () {
         }
     });
 
+    /* Si es clica fora del modal, aquest també es tancarà. */
     span.onclick = function () {
         modal.style.display = "none";
         modalActiu = !modalActiu;
@@ -135,10 +143,11 @@ window.onload = function () {
         }
     }
 
-
     /**
-     * It loads the tasks of a given day into a modal.
-     * @param data - the date of the task
+     * Mostra el modal, amb una llista de les tasques en la data especificada.
+     * Amb les fletxes esquerra i dreta, permet moure's a través de les tasques.
+     * Al clickar la tasca, carregarà la pàgina d'edició, passant la data i la posició d'aquesta per l'URL.
+     * @param data - La dada de la tasca
      */
     function carregarModal(data) {
         document.getElementById('dataModal').innerText = data;
@@ -154,6 +163,7 @@ window.onload = function () {
                 }
             }
         }
+
         document.getElementById("tasquesModal").innerHTML = html;
         document.getElementById("tascaNova").focus();
 
@@ -174,6 +184,8 @@ window.onload = function () {
     }
 
     var notificacions = document.querySelectorAll('.notifs');
+
+    /* Compta el número de tasques acabades i no acabades, per mostrar-les en el calendari. */
     for (let i = 0; i < notificacions.length; i++) {
         dataABuscar = notificacions[i].parentElement.id;
         //console.log(dataABuscar);
@@ -198,7 +210,12 @@ window.onload = function () {
         }
 
     }
-
+    /** 
+    * Cada 10 segons comprova totes les tasques enregistrades.Si aquestes no estan acabades, comprova la seva hora.
+    * Si la diferència entre l'hora de la tasca i l'hora actual és menor a 1 hora, envia un correu recordatori.
+    * Si la diferència entre l'hora de la tasca i l'hora actual és menor a 1/2 hora, envia un altre correu recordatori.
+    * Guarda en localStorage si s'ha enviat o no la notificació, evitant així enviar-ne una cada 10 segons.
+    */ 
     setInterval(function () {
         for (var i = 0, row; row = table.rows[i]; i++) {
             for (var j = 0, col; col = row.cells[j]; j++) {
