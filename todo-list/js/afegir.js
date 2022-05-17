@@ -2,7 +2,7 @@ window.onload = function () {
 
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
-
+    
     const data = urlParams.get('data');
 
     document.getElementById('dataDia').value = data.substring(0, data.indexOf('/'));
