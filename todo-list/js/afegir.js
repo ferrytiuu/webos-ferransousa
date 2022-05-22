@@ -19,7 +19,7 @@ window.onload = function () {
             keycode = inEvent.keyCode;
         }
         guardar: if (keycode == 13 || keycode == 406) {
-            if(document.getElementById('dataDia').value == '' || document.getElementById('titol').value == '' || document.getElementById('descripcio').value == '' || document.getElementById('hora').value == '' || document.getElementById('min').value == ''){
+            if(document.getElementById('dataDia').value == '' || document.getElementById('titol').value == '' || document.getElementById('hora').value == '' || document.getElementById('min').value == ''){
                 alert('Omple tots els camps');
                 break guardar;
             }

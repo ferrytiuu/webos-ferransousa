@@ -39,7 +39,7 @@ window.onload = function () {
             location.replace('index.html');
         }
          else editar:if (keycode == 13 || keycode == 404) {
-            if(document.getElementById('dataDiaModificar').value == '' || document.getElementById('titolModificar').value == '' || document.getElementById('horaModificar').value == '' || document.getElementById('minModificar').value == '' || document.getElementById('descripcioModificar').value == '' ){
+            if(document.getElementById('dataDiaModificar').value == '' || document.getElementById('titolModificar').value == '' || document.getElementById('horaModificar').value == '' || document.getElementById('minModificar').value == ''){
                 alert('Omple tots els camps');
                 break editar;
             }
